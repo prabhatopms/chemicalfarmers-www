@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chemical Farmers — Oxide Auction</title>
+  <meta name="description" content="Exclusive limited-edition drops. Bid live on Chemical Farmers merch." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-0: #07070c;
+      --bg-1: #0c0d15;
+      --bg-2: #11131e;
+      --line: rgba(255,255,255,0.08);
+      --line-strong: rgba(255,255,255,0.16);
+      --txt: #f4f1ea;
+      --txt-dim: #b9b6c4;
+      --txt-mute: #7d7a8c;
+      --gold: #caa45a;
+      --gold-bright: #e6c27e;
+      --gold-deep: #9c7c3c;
+      --glow: 202 164 90;
+      --nebula-a: 124 92 255;
+      --nebula-b: 39 120 220;
+      --font-display: "Space Grotesk", system-ui, sans-serif;
+      --font-body: "Hanken Grotesk", system-ui, sans-serif;
+      --r-sm: 8px;
+      --r-md: 14px;
+      --r-lg: 22px;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg-0);
+      color: var(--txt);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow: hidden;
+    }
+
+    /* ── Background ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(120% 80% at 50% -10%, rgb(var(--nebula-a) / 0.12) 0%, transparent 55%),
+        radial-gradient(90% 70% at 100% 110%, rgb(var(--nebula-b) / 0.09) 0%, transparent 50%),
+        radial-gradient(60% 50% at 0% 100%, rgb(var(--glow) / 0.06) 0%, transparent 60%),
+        var(--bg-0);
+      z-index: 0;
+    }
+
+    /* ── Starfield ── */
+    canvas#stars {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    /* ── Spotlight ── */
+    .spotlight {
+      position: fixed;
+      left: 50%; top: -8%; transform: translateX(-50%);
+      width: 70%; height: 92%;
+      background: linear-gradient(180deg, rgb(var(--glow) / 0.13) 0%, rgb(var(--glow) / 0.0) 62%);
+      clip-path: polygon(38% 0, 62% 0, 100% 100%, 0% 100%);
+      filter: blur(6px);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    /* ── Brand mark ── */
+    .brand-mark {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 30%, var(--gold-bright), var(--gold-deep) 70%, #4a3a1c);
+      box-shadow: 0 0 32px rgb(var(--glow) / 0.55), inset 0 0 12px rgba(0,0,0,0.4);
+      margin-bottom: 24px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); box-shadow: 0 0 32px rgb(var(--glow) / 0.55), inset 0 0 12px rgba(0,0,0,0.4); }
+      50% { transform: translateY(-8px); box-shadow: 0 16px 48px rgb(var(--glow) / 0.4), inset 0 0 12px rgba(0,0,0,0.4); }
+    }
+
+    /* ── Eyebrow ── */
+    .eyebrow {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+      margin-bottom: 14px;
+    }
+
+    /* ── Headline ── */
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--txt);
+      max-width: 700px;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+      margin-bottom: 18px;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Sub ── */
+    .sub {
+      font-size: clamp(14px, 2vw, 17px);
+      color: var(--txt-dim);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: var(--r-md);
+      border: none;
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+      color: #271d08;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      box-shadow: 0 10px 36px rgb(var(--glow) / 0.45);
+      transition: filter 0.15s, box-shadow 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 14px 44px rgb(var(--glow) / 0.6);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary .arrow {
+      font-size: 18px;
+      transition: transform 0.15s;
+    }
+
+    .btn-primary:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Status pill ── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(11,12,20,0.7);
+      color: var(--txt-dim);
+      font-size: 13px;
+      backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+
+    .pill .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #5fd6a0;
+      box-shadow: 0 0 8px #5fd6a0;
+      animation: blink 1.6s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── Footer note ── */
+    .footer-note {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--txt-mute);
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    /* ── Vignette ── */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(110% 90% at 50% 42%, transparent 45%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      html, body { overflow: auto; }
+      .page { height: auto; min-height: 100svh; padding: 48px 20px 80px; }
+      .footer-note { position: static; transform: none; margin-top: 48px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <canvas id="stars"></canvas>
+  <div class="spotlight"></div>
+  <div class="vignette"></div>
+
+  <main class="page">
+    <div class="brand-mark"></div>
+    <div class="eyebrow">Chemical Farmers</div>
+    <h1>Bid on the <span>drop</span>.<br>Own the piece.</h1>
+    <p class="sub">Live auctions on exclusive Chemical Farmers merch. One item, one stage, one winner.</p>
+    <div class="cta-wrap">
+      <a href="https://oxide.chemicalfarmers.com" class="btn-primary">
+        Enter Oxide <span class="arrow">→</span>
+      </a>
+      <div class="pill">
+        <span class="dot"></span>
+        Auction live now
+      </div>
+    </div>
+  </main>
+
+  <div class="footer-note">chemicalfarmers.com</div>
+
+  <script>
+    // Lightweight starfield — no dependencies
+    (function () {
+      const canvas = document.getElementById('stars');
+      const ctx = canvas.getContext('2d');
+      let stars = [];
+      const COUNT = 160;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function init() {
+        stars = Array.from({ length: COUNT }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.2 + 0.2,
+          a: Math.random(),
+          speed: Math.random() * 0.004 + 0.001,
+          phase: Math.random() * Math.PI * 2,
+        }));
+      }
+
+      function draw(t) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const s of stars) {
+          s.a = 0.25 + 0.55 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      init();
+      requestAnimationFrame(draw);
+      window.addEventListener('resize', () => { resize(); init(); });
+    })();
+  </script>
+</body>
+</html>
