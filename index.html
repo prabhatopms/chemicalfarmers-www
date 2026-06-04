@@ -3,316 +3,858 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chemical Farmers — Oxide Auction</title>
-  <meta name="description" content="Exclusive limited-edition drops. Bid live on Chemical Farmers merch." />
+  <title>Chemical Farmers — Creative Studio & Ventures</title>
+  <meta name="description" content="Portfolio of Chemical Farmers ventures: Oxide live merchandise auctions and AL2O3 apparel branding lab." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
-      --bg-0: #07070c;
-      --bg-1: #0c0d15;
-      --bg-2: #11131e;
-      --line: rgba(255,255,255,0.08);
-      --line-strong: rgba(255,255,255,0.16);
-      --txt: #f4f1ea;
-      --txt-dim: #b9b6c4;
-      --txt-mute: #7d7a8c;
-      --gold: #caa45a;
-      --gold-bright: #e6c27e;
-      --gold-deep: #9c7c3c;
-      --glow: 202 164 90;
-      --nebula-a: 124 92 255;
-      --nebula-b: 39 120 220;
+      /* Risograph Spot Colors */
+      --color-paper: #faf7f0;
+      --color-paper-shadow: #e6dfd1;
+      --color-ink-dark: #121215;
+      
+      --color-ink-pink: #ff3377;
+      --color-ink-pink-alpha: rgba(255, 51, 119, 0.85);
+      
+      --color-ink-blue: #0047bb;
+      --color-ink-blue-alpha: rgba(0, 71, 187, 0.85);
+      
+      --color-ink-yellow: #ffb800;
+      --color-ink-yellow-alpha: rgba(255, 184, 0, 0.85);
+      
+      --color-ink-teal: #009c95;
+      --color-ink-teal-alpha: rgba(0, 156, 149, 0.85);
+
       --font-display: "Space Grotesk", system-ui, sans-serif;
       --font-body: "Hanken Grotesk", system-ui, sans-serif;
-      --r-sm: 8px;
-      --r-md: 14px;
-      --r-lg: 22px;
+
+      --border-heavy: 3.5px solid var(--color-ink-dark);
+      --border-light: 1.5px solid var(--color-ink-dark);
     }
 
     html, body {
-      height: 100%;
-      background: var(--bg-0);
-      color: var(--txt);
+      background-color: var(--color-paper);
+      /* Subtle halftone/dots background pattern */
+      background-image: 
+        radial-gradient(var(--color-paper-shadow) 1.5px, transparent 1.5px),
+        radial-gradient(var(--color-paper-shadow) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      background-position: 0 0, 12px 12px;
+      color: var(--color-ink-dark);
       font-family: var(--font-body);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      overflow: hidden;
+      min-height: 100vh;
     }
 
-    /* ── Background ── */
-    .bg {
+    /* ── Fine-Grain Overlay ── */
+    .noise-overlay {
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(120% 80% at 50% -10%, rgb(var(--nebula-a) / 0.12) 0%, transparent 55%),
-        radial-gradient(90% 70% at 100% 110%, rgb(var(--nebula-b) / 0.09) 0%, transparent 50%),
-        radial-gradient(60% 50% at 0% 100%, rgb(var(--glow) / 0.06) 0%, transparent 60%),
-        var(--bg-0);
-      z-index: 0;
-    }
-
-    /* ── Starfield ── */
-    canvas#stars {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      opacity: 0.65;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.16;
+      z-index: 9999;
       pointer-events: none;
+      filter: url(#riso-grain);
     }
 
-    /* ── Spotlight ── */
-    .spotlight {
+    /* ── Print Frame Border ── */
+    .print-frame {
       position: fixed;
-      left: 50%; top: -8%; transform: translateX(-50%);
-      width: 70%; height: 92%;
-      background: linear-gradient(180deg, rgb(var(--glow) / 0.13) 0%, rgb(var(--glow) / 0.0) 62%);
-      clip-path: polygon(38% 0, 62% 0, 100% 100%, 0% 100%);
-      filter: blur(6px);
-      z-index: 2;
+      inset: 16px;
+      border: var(--border-heavy);
       pointer-events: none;
+      z-index: 9998;
     }
 
-    /* ── Layout ── */
-    .page {
+    .print-border-info {
+      position: fixed;
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--color-ink-dark);
+      z-index: 9999;
+      pointer-events: none;
+      background: var(--color-paper);
+      padding: 2px 8px;
+      text-transform: uppercase;
+    }
+    .print-border-info.top-left { top: 10px; left: 28px; }
+    .print-border-info.top-right { top: 10px; right: 28px; }
+    .print-border-info.bottom-left { bottom: 10px; left: 28px; }
+    .print-border-info.bottom-right { bottom: 10px; right: 28px; }
+
+    @media (max-width: 768px) {
+      .print-frame { inset: 8px; border-width: 2px; }
+      .print-border-info { display: none; }
+    }
+
+    /* ── Main Container ── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
       position: relative;
       z-index: 10;
-      height: 100vh;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 48px 20px 64px;
+      }
+    }
+
+    /* ── Header ── */
+    .header {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      padding: 32px 24px;
-      text-align: center;
+      margin-bottom: 80px;
     }
 
-    /* ── Brand mark ── */
-    .brand-mark {
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 32% 30%, var(--gold-bright), var(--gold-deep) 70%, #4a3a1c);
-      box-shadow: 0 0 32px rgb(var(--glow) / 0.55), inset 0 0 12px rgba(0,0,0,0.4);
-      margin-bottom: 24px;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); box-shadow: 0 0 32px rgb(var(--glow) / 0.55), inset 0 0 12px rgba(0,0,0,0.4); }
-      50% { transform: translateY(-8px); box-shadow: 0 16px 48px rgb(var(--glow) / 0.4), inset 0 0 12px rgba(0,0,0,0.4); }
-    }
-
-    /* ── Eyebrow ── */
-    .eyebrow {
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold-bright);
-      margin-bottom: 14px;
-    }
-
-    /* ── Headline ── */
-    h1 {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 6vw, 72px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--txt);
-      max-width: 700px;
-      text-shadow: 0 4px 40px rgba(0,0,0,0.6);
-      margin-bottom: 18px;
-    }
-
-    h1 span {
-      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* ── Sub ── */
-    .sub {
-      font-size: clamp(14px, 2vw, 17px);
-      color: var(--txt-dim);
-      max-width: 480px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-
-    /* ── CTA ── */
-    .cta-wrap {
+    .header-logo {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: 16px;
-      align-items: center;
-      justify-content: center;
     }
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 32px;
-      border-radius: var(--r-md);
-      border: none;
-      background: linear-gradient(180deg, var(--gold-bright), var(--gold));
-      color: #271d08;
+    .brand-logo {
+      display: block;
+      filter: drop-shadow(1.5px 1.5px 0 var(--color-ink-dark));
+    }
+
+    .header-title {
       font-family: var(--font-display);
+      font-size: 20px;
       font-weight: 700;
-      font-size: 15px;
-      letter-spacing: 0.02em;
-      text-decoration: none;
-      box-shadow: 0 10px 36px rgb(var(--glow) / 0.45);
-      transition: filter 0.15s, box-shadow 0.15s, transform 0.1s;
-      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
     }
 
-    .btn-primary:hover {
-      filter: brightness(1.08);
-      box-shadow: 0 14px 44px rgb(var(--glow) / 0.6);
-    }
-
-    .btn-primary:active {
-      transform: scale(0.97);
-    }
-
-    .btn-primary .arrow {
-      font-size: 18px;
-      transition: transform 0.15s;
-    }
-
-    .btn-primary:hover .arrow {
-      transform: translateX(4px);
-    }
-
-    /* ── Status pill ── */
-    .pill {
+    .header-status {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 18px;
-      border: 1px solid var(--line-strong);
+      padding: 6px 14px;
+      border: var(--border-light);
       border-radius: 999px;
-      background: rgba(11,12,20,0.7);
-      color: var(--txt-dim);
-      font-size: 13px;
-      backdrop-filter: blur(10px);
-      white-space: nowrap;
-    }
-
-    .pill .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #5fd6a0;
-      box-shadow: 0 0 8px #5fd6a0;
-      animation: blink 1.6s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    /* ── Footer note ── */
-    .footer-note {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
+      background: var(--color-paper);
+      font-family: var(--font-display);
       font-size: 11px;
-      letter-spacing: 0.14em;
+      font-weight: 700;
       text-transform: uppercase;
-      color: var(--txt-mute);
-      z-index: 10;
-      white-space: nowrap;
+      letter-spacing: 0.05em;
     }
 
-    /* ── Vignette ── */
-    .vignette {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(110% 90% at 50% 42%, transparent 45%, rgba(0,0,0,0.55) 100%);
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--color-ink-teal);
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.4; }
+    }
+
+    /* ── Hero Section ── */
+    .hero {
+      margin-bottom: 80px;
+      max-width: 900px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9.5vw, 6.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      line-height: 0.85;
+      color: var(--color-ink-dark);
+      margin-bottom: 28px;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Riso shift text shadow effect */
+    .hero-title::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 3.5px;
+      top: -3px;
+      color: var(--color-ink-pink-alpha);
+      mix-blend-mode: multiply;
+      z-index: -1;
+      opacity: 0.9;
       pointer-events: none;
-      z-index: 3;
     }
 
-    /* ── Mobile ── */
+    .hero-title::after {
+      content: attr(data-text);
+      position: absolute;
+      left: -3.5px;
+      top: 3px;
+      color: var(--color-ink-blue-alpha);
+      mix-blend-mode: multiply;
+      z-index: -2;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-sub {
+      font-size: clamp(18px, 3.5vw, 24px);
+      line-height: 1.45;
+      font-weight: 500;
+      color: var(--color-ink-dark);
+      max-width: 720px;
+    }
+
+    /* Brush highlighter effect */
+    .highlight-ink {
+      position: relative;
+      display: inline-block;
+      padding: 0 4px;
+      z-index: 1;
+    }
+
+    .highlight-ink::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 100%;
+      height: 48%;
+      z-index: -1;
+      transform: rotate(-0.5deg);
+    }
+    
+    .highlight-ink.pink::before { background-color: var(--color-ink-pink-alpha); }
+    .highlight-ink.yellow::before { background-color: var(--color-ink-yellow-alpha); }
+
+    /* ── Section Header ── */
+    .section-header {
+      margin-bottom: 48px;
+      border-bottom: var(--border-heavy);
+      padding-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .section-tag {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      opacity: 0.65;
+    }
+
+    /* ── Ventures Grid ── */
+    .ventures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    @media (max-width: 480px) {
+      .ventures-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Venture Cards ── */
+    .card-wrap {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      outline: none;
+    }
+
+    /* The offset print color shadow block */
+    .card-ink-shadow {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      border: var(--border-heavy);
+      z-index: 1;
+      transform: translate(8px, 8px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .pink-shadow { background-color: var(--color-ink-pink); }
+    .teal-shadow { background-color: var(--color-ink-teal); }
+    .yellow-shadow { background-color: var(--color-ink-yellow); }
+
+    /* The primary card surface */
+    .card-body {
+      position: relative;
+      z-index: 2;
+      background: var(--color-paper);
+      border: var(--border-heavy);
+      border-radius: 16px;
+      padding: 36px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Card header metadata */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .card-meta {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+    }
+
+    .card-status-pill {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: var(--border-light);
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+
+    .card-status-pill.green {
+      background-color: #e5fdf3;
+      color: #007747;
+      border-color: #007747;
+    }
+
+    .card-status-pill.blue {
+      background-color: #e6efff;
+      color: var(--color-ink-blue);
+      border-color: var(--color-ink-blue);
+    }
+
+    /* Card visual graphic container */
+    .graphic-container {
+      position: relative;
+      width: 100%;
+      height: 190px;
+      background-color: var(--color-paper-shadow);
+      border: var(--border-light);
+      border-radius: 8px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Grid layout simulation inside cards */
+    .graphic-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(var(--color-ink-dark) 0.8px, transparent 0.8px);
+      background-size: 8px 8px;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .venture-graphic {
+      width: 90%;
+      height: 90%;
+      max-height: 170px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Card Details */
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--color-ink-dark);
+    }
+
+    .card-desc {
+      font-size: 16px;
+      line-height: 1.6;
+      opacity: 0.85;
+      color: var(--color-ink-dark);
+      margin-bottom: 32px;
+      flex-grow: 1;
+    }
+
+    /* Card footer button */
+    .card-footer {
+      display: flex;
+      margin-top: auto;
+    }
+
+    .card-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      padding: 12px 24px;
+      border: var(--border-heavy);
+      border-radius: 8px;
+      background: var(--color-paper);
+      color: var(--color-ink-dark);
+      transition: background 0.15s, color 0.15s, box-shadow 0.25s, transform 0.25s;
+    }
+
+    .pink-btn { box-shadow: 4px 4px 0 var(--color-ink-pink-alpha); }
+    .teal-btn { box-shadow: 4px 4px 0 var(--color-ink-teal-alpha); }
+
+    .arrow {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Interactive Hover Transitions */
+    .card-wrap:hover .card-body {
+      transform: translate(-6px, -6px);
+    }
+
+    .card-wrap:hover .card-ink-shadow {
+      transform: translate(14px, 14px);
+    }
+
+    .card-wrap:active .card-body {
+      transform: translate(2px, 2px);
+    }
+
+    .card-wrap:active .card-ink-shadow {
+      transform: translate(4px, 4px);
+    }
+
+    /* Riso screen layers slide slightly relative to outline to feel organic */
+    .card-wrap:hover .riso-layers {
+      transform: translate(3px, -2px);
+    }
+
+    .card-wrap:hover .stamp-outlines {
+      transform: translate(-1.5px, 1.5px);
+    }
+
+    .card-wrap:hover .venture-graphic {
+      transform: scale(1.025);
+    }
+
+    .card-wrap:hover .pink-btn {
+      background-color: var(--color-ink-pink);
+      color: var(--color-paper);
+      box-shadow: 0px 0px 0 var(--color-ink-pink-alpha);
+      transform: translate(2px, 2px);
+    }
+
+    .card-wrap:hover .teal-btn {
+      background-color: var(--color-ink-teal);
+      color: var(--color-paper);
+      box-shadow: 0px 0px 0 var(--color-ink-teal-alpha);
+      transform: translate(2px, 2px);
+    }
+
+    .card-wrap:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* Transitions for SVG groups */
+    .riso-layers, .stamp-outlines {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── Secondary Section: Studio Manifest & Logbook ── */
+    .manifest-section {
+      margin-bottom: 80px;
+    }
+
+    .manifest-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 860px) {
+      .manifest-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .manifest-body {
+      padding: 44px;
+    }
+
+    .manifest-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .manifest-text {
+      font-size: 17px;
+      line-height: 1.7;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .logbook-body {
+      padding: 40px;
+      background: var(--color-paper);
+      border: var(--border-heavy);
+      border-radius: 16px;
+    }
+
+    .logbook-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+      border-bottom: var(--border-light);
+      padding-bottom: 10px;
+    }
+
+    .logbook-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .logbook-list li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .logbook-list li .num {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-ink-pink);
+    }
+
+    .logbook-list li .detail strong {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .logbook-list li .detail p {
+      font-size: 14px;
+      line-height: 1.5;
+      opacity: 0.8;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: var(--border-heavy);
+      padding-top: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
     @media (max-width: 600px) {
-      html, body { overflow: auto; }
-      .page { height: auto; min-height: 100svh; padding: 48px 20px 80px; }
-      .footer-note { position: static; transform: none; margin-top: 48px; text-align: center; }
+      .footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--color-ink-dark);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .footer-links a:hover {
+      border-color: var(--color-ink-pink);
     }
   </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <canvas id="stars"></canvas>
-  <div class="spotlight"></div>
-  <div class="vignette"></div>
 
-  <main class="page">
-    <div class="brand-mark"></div>
-    <div class="eyebrow">Chemical Farmers</div>
-    <h1>Bid on the <span>drop</span>.<br>Own the piece.</h1>
-    <p class="sub">Live auctions on exclusive Chemical Farmers merch. One item, one stage, one winner.</p>
-    <div class="cta-wrap">
-      <a href="https://oxide.chemicalfarmers.com" class="btn-primary">
-        Enter Oxide <span class="arrow">→</span>
-      </a>
-      <div class="pill">
-        <span class="dot"></span>
-        Auction live now
+  <!-- Fine Grain Texture Layer -->
+  <div class="noise-overlay"></div>
+
+  <!-- SVG Filter defining organic Risograph grain -->
+  <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+    <filter id="riso-grain">
+      <!-- Fractal noise for print paper fibers -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.18 0" />
+    </filter>
+  </svg>
+
+  <!-- Technical Print Border Frame & Markings -->
+  <div class="print-frame"></div>
+  <div class="print-border-info top-left">Chemical Farmers Lab</div>
+  <div class="print-border-info top-right">Portfolio // Rev.2026.06</div>
+  <div class="print-border-info bottom-left">Domain: chemicalfarmers.com</div>
+  <div class="print-border-info bottom-right">Plate No. 01</div>
+
+  <div class="container">
+    
+    <!-- ── Header ── -->
+    <header class="header">
+      <div class="header-logo">
+        <svg class="brand-logo" viewBox="0 0 100 100" width="52" height="52" aria-label="Chemical Farmers Stamp Logo">
+          <!-- Overlapping translucent colors forming screen print stamps -->
+          <g mix-blend-mode="multiply">
+            <circle cx="43" cy="43" r="29" fill="var(--color-ink-pink)" />
+            <circle cx="57" cy="43" r="29" fill="var(--color-ink-blue)" />
+            <circle cx="50" cy="57" r="29" fill="var(--color-ink-yellow)" />
+          </g>
+          <!-- Heavy black stamp container -->
+          <circle cx="50" cy="50" r="43" fill="none" stroke="var(--color-ink-dark)" stroke-width="4.5" />
+          <path d="M 50 12 L 50 88 M 12 50 L 88 50" stroke="var(--color-ink-dark)" stroke-dasharray="2 6" stroke-width="1.5" />
+        </svg>
+        <span class="header-title">Chemical Farmers</span>
       </div>
-    </div>
-  </main>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span>Studio Active</span>
+      </div>
+    </header>
 
-  <div class="footer-note">chemicalfarmers.com</div>
+    <!-- ── Hero Section ── -->
+    <main class="hero">
+      <h1 class="hero-title" data-text="Chemical Farmers">Chemical Farmers</h1>
+      <p class="hero-sub">
+        A collaborative studio and design lab blending <span class="highlight-ink pink">digital systems</span>, physical garments, and <span class="highlight-ink yellow">experimental artifacts</span>.
+      </p>
+    </main>
 
-  <script>
-    // Lightweight starfield — no dependencies
-    (function () {
-      const canvas = document.getElementById('stars');
-      const ctx = canvas.getContext('2d');
-      let stars = [];
-      const COUNT = 160;
+    <!-- ── Ventures Section ── -->
+    <section class="ventures-section">
+      <div class="section-header">
+        <h2 class="section-title">Active Ventures</h2>
+        <p class="section-tag">CATALOG: CF-01 // CF-02</p>
+      </div>
 
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
+      <div class="ventures-grid">
+        
+        <!-- Venture 01: Oxide -->
+        <a href="https://oxide.chemicalfarmers.com" target="_blank" rel="noopener noreferrer" class="card-wrap">
+          <div class="card-ink-shadow pink-shadow"></div>
+          <div class="card-body">
+            
+            <div class="card-header">
+              <span class="card-meta">CF-01 // MERCHANDISE AUCTIONS</span>
+              <span class="card-status-pill green">Auction Live</span>
+            </div>
 
-      function init() {
-        stars = Array.from({ length: COUNT }, () => ({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 1.2 + 0.2,
-          a: Math.random(),
-          speed: Math.random() * 0.004 + 0.001,
-          phase: Math.random() * Math.PI * 2,
-        }));
-      }
+            <!-- Conceptual Riso Illustration (Oxide: Gavel / Bid drop) -->
+            <div class="graphic-container">
+              <svg class="venture-graphic" viewBox="0 0 240 160" aria-hidden="true">
+                <g class="riso-layers" mix-blend-mode="multiply">
+                  <!-- Blue Layer: Sound waves / Target rings -->
+                  <circle cx="120" cy="80" r="44" fill="var(--color-ink-blue-alpha)" />
+                  <circle cx="120" cy="80" r="28" fill="none" stroke="var(--color-ink-blue-alpha)" stroke-width="8" stroke-dasharray="4 4" />
+                  <!-- Pink Layer: Gavel strike blocks -->
+                  <rect x="75" y="45" width="34" height="70" rx="4" transform="rotate(-30 92 80)" fill="var(--color-ink-pink-alpha)" />
+                  <rect x="60" y="112" width="120" height="14" rx="3" fill="var(--color-ink-pink-alpha)" />
+                  <!-- Yellow Layer: Gavel Handle -->
+                  <rect x="98" y="70" width="90" height="12" rx="3" transform="rotate(35 143 76)" fill="var(--color-ink-yellow-alpha)" />
+                </g>
+                <!-- Offset outlines simulating print misalignment -->
+                <g class="stamp-outlines" transform="translate(1.5, -2)">
+                  <rect x="60" y="112" width="120" height="14" rx="3" fill="none" stroke="var(--color-ink-dark)" stroke-width="3" />
+                  <rect x="75" y="45" width="34" height="70" rx="4" transform="rotate(-30 92 80)" fill="none" stroke="var(--color-ink-dark)" stroke-width="3" />
+                  <rect x="98" y="70" width="90" height="12" rx="3" transform="rotate(35 143 76)" fill="none" stroke="var(--color-ink-dark)" stroke-width="3" />
+                  <circle cx="106" cy="74" r="5" fill="var(--color-paper)" stroke="var(--color-ink-dark)" stroke-width="3" />
+                </g>
+              </svg>
+            </div>
 
-      function draw(t) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (const s of stars) {
-          s.a = 0.25 + 0.55 * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255,255,255,${s.a})`;
-          ctx.fill();
-        }
-        requestAnimationFrame(draw);
-      }
+            <h3 class="card-title">Oxide</h3>
+            <p class="card-desc">
+              Live auctions on exclusive Chemical Farmers merchandise. One item, one stage, one winner. We design custom garments and release them in singular batches, decided in real-time by interactive bidders.
+            </p>
 
-      resize();
-      init();
-      requestAnimationFrame(draw);
-      window.addEventListener('resize', () => { resize(); init(); });
-    })();
-  </script>
+            <div class="card-footer">
+              <span class="card-link-btn pink-btn">
+                Enter Oxide <span class="arrow">→</span>
+              </span>
+            </div>
+            
+          </div>
+        </a>
+
+        <!-- Venture 02: AL2O3 -->
+        <a href="https://al2o3.chemicalfarmers.com" target="_blank" rel="noopener noreferrer" class="card-wrap">
+          <div class="card-ink-shadow teal-shadow"></div>
+          <div class="card-body">
+            
+            <div class="card-header">
+              <span class="card-meta">CF-02 // APPAREL LAB</span>
+              <span class="card-status-pill blue">Active Site</span>
+            </div>
+
+            <!-- Conceptual Riso Illustration (AL2O3: Screen print t-shirt & chemical structure) -->
+            <div class="graphic-container">
+              <svg class="venture-graphic" viewBox="0 0 240 160" aria-hidden="true">
+                <g class="riso-layers" mix-blend-mode="multiply">
+                  <!-- Yellow Layer: T-shirt silhouette -->
+                  <path d="M 72 38 L 94 38 L 98 46 L 120 46 L 142 46 L 146 38 L 168 38 L 186 62 L 168 76 L 158 70 L 158 124 L 82 124 L 82 70 L 72 76 L 54 62 Z" fill="var(--color-ink-yellow-alpha)" />
+                  <!-- Teal Layer: Screen frame hexagon -->
+                  <polygon points="120,18 174,48 174,112 120,142 66,112 66,48" fill="none" stroke="var(--color-ink-teal-alpha)" stroke-width="5.5" />
+                  <!-- Blue Layer: Molecular structure representing Al2O3 -->
+                  <circle cx="95" cy="76" r="15" fill="var(--color-ink-blue-alpha)" />
+                  <circle cx="145" cy="76" r="15" fill="var(--color-ink-blue-alpha)" />
+                  <circle cx="120" cy="52" r="11" fill="var(--color-ink-pink-alpha)" />
+                  <circle cx="120" cy="100" r="11" fill="var(--color-ink-pink-alpha)" />
+                  <circle cx="120" cy="76" r="9" fill="var(--color-ink-pink-alpha)" />
+                </g>
+                <!-- Offset outlines simulating print misalignment -->
+                <g class="stamp-outlines" transform="translate(-1.5, 1.5)">
+                  <!-- T-shirt outline -->
+                  <path d="M 72 38 L 94 38 L 98 46 L 120 46 L 142 46 L 146 38 L 168 38 L 186 62 L 168 76 L 158 70 L 158 124 L 82 124 L 82 70 L 72 76 L 54 62 Z" fill="none" stroke="var(--color-ink-dark)" stroke-width="3" />
+                  <!-- Chemical bonds (dashed) -->
+                  <line x1="95" y1="76" x2="120" y2="52" stroke="var(--color-ink-dark)" stroke-width="2" stroke-dasharray="2 3" />
+                  <line x1="95" y1="76" x2="120" y2="76" stroke="var(--color-ink-dark)" stroke-width="2" stroke-dasharray="2 3" />
+                  <line x1="95" y1="76" x2="120" y2="100" stroke="var(--color-ink-dark)" stroke-width="2" stroke-dasharray="2 3" />
+                  <line x1="145" y1="76" x2="120" y2="52" stroke="var(--color-ink-dark)" stroke-width="2" stroke-dasharray="2 3" />
+                  <line x1="145" y1="76" x2="120" y2="76" stroke="var(--color-ink-dark)" stroke-width="2" stroke-dasharray="2 3" />
+                  <line x1="145" y1="76" x2="120" y2="100" stroke="var(--color-ink-dark)" stroke-width="2" stroke-dasharray="2 3" />
+                  <!-- Atoms outlines -->
+                  <circle cx="95" cy="76" r="15" fill="none" stroke="var(--color-ink-dark)" stroke-width="2.5" />
+                  <circle cx="145" cy="76" r="15" fill="none" stroke="var(--color-ink-dark)" stroke-width="2.5" />
+                  <circle cx="120" cy="52" r="11" fill="none" stroke="var(--color-ink-dark)" stroke-width="2.5" />
+                  <circle cx="120" cy="100" r="11" fill="none" stroke="var(--color-ink-dark)" stroke-width="2.5" />
+                  <circle cx="120" cy="76" r="9" fill="none" stroke="var(--color-ink-dark)" stroke-width="2.5" />
+                </g>
+              </svg>
+            </div>
+
+            <h3 class="card-title">AL2O3</h3>
+            <p class="card-desc">
+              Experimental apparel branding website & print house. Rooted in brutalist industrial design, heavyweight materials, and physical screen-printing experiments. Customized wearable items made in finite batches.
+            </p>
+
+            <div class="card-footer">
+              <span class="card-link-btn teal-btn">
+                Explore AL2O3 <span class="arrow">→</span>
+              </span>
+            </div>
+            
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── Studio Manifest & Logbook (Secondary Section) ── -->
+    <section class="manifest-section">
+      <div class="manifest-grid">
+        
+        <div class="manifest-card">
+          <div class="card-ink-shadow yellow-shadow"></div>
+          <div class="card-body manifest-body">
+            <h3 class="manifest-title">Collective Manifest</h3>
+            <p class="manifest-text">
+              We operate under the philosophy that digital systems and physical goods should exist in dialogue. Our ventures represent nodes in a decentralized network of design, production, and distribution. We do not mass-produce; we build limited runs, run live experiments, and document our source code.
+            </p>
+          </div>
+        </div>
+
+        <div class="logbook-card">
+          <div class="logbook-body">
+            <h3 class="logbook-title">Core Principles</h3>
+            <ul class="logbook-list">
+              <li>
+                <span class="num">01 /</span>
+                <div class="detail">
+                  <strong>Tactile Overload</strong>
+                  <p>Whether ink on cotton or pixels on a screen, texture, noise, and friction create depth.</p>
+                </div>
+              </li>
+              <li>
+                <span class="num">02 /</span>
+                <div class="detail">
+                  <strong>Open Architecture</strong>
+                  <p>Our codebases and processes are shared openly, inviting adaptation and analysis.</p>
+                </div>
+              </li>
+              <li>
+                <span class="num">03 /</span>
+                <div class="detail">
+                  <strong>Finite Output</strong>
+                  <p>Scarcity drives appreciation. When a batch or auction is complete, it does not repeat.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="footer">
+      <div class="footer-left">
+        <p>&copy; 2026 Chemical Farmers. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://oxide.chemicalfarmers.com" target="_blank" rel="noopener noreferrer">Oxide</a>
+        <a href="https://al2o3.chemicalfarmers.com" target="_blank" rel="noopener noreferrer">AL2O3</a>
+      </div>
+    </footer>
+
+  </div>
+
 </body>
 </html>
