@@ -3,615 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary SEO Metadata -->
   <title>Chemical Farmers — Ventures Directory</title>
-  <meta name="description" content="A directory of active software and physical merchandise ventures built by the Chemical Farmers design lab." />
+  <meta name="description" content="A curated directory of active software platforms, live merchandise auctions, and experimental textile branding labs developed by the Chemical Farmers design collective." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://chemicalfarmers.com/" />
+
+  <!-- Open Graph / Facebook / Discord Embeds -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chemicalfarmers.com/" />
+  <meta property="og:title" content="Chemical Farmers — Ventures & Design Lab" />
+  <meta property="og:description" content="A curated portfolio of active software platforms, live merchandise auctions, and experimental textile branding labs developed by the Chemical Farmers collective." />
+  <meta property="og:image" content="https://chemicalfarmers.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="1200" />
+  <meta property="og:site_name" content="Chemical Farmers" />
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@chemicalfarmers" />
+  <meta name="twitter:creator" content="@chemicalfarmers" />
+  <meta name="twitter:title" content="Chemical Farmers — Ventures & Design Lab" />
+  <meta name="twitter:description" content="A curated portfolio of active software platforms, live merchandise auctions, and experimental textile branding labs developed by the Chemical Farmers collective." />
+  <meta name="twitter:image" content="https://chemicalfarmers.com/assets/og-image.png" />
+
+  <!-- Inline SVG Favicon — Renders our custom Riso stamp logo natively -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><g mix-blend-mode=%22multiply%22><circle cx=%2243%22 cy=%2243%22 r=%2229%22 fill=%22%23ff3377%22 /><circle cx=%2257%22 cy=%2243%22 r=%2229%22 fill=%22%230047bb%22 /><circle cx=%2250%22 cy=%2257%22 r=%2229%22 fill=%22%23ffb800%22 /></g><circle cx=%2250%22 cy=%2250%22 r=%2243%22 fill=%22none%22 stroke=%22%23121215%22 stroke-width=%225%22 /></svg>" />
+
+  <!-- Google Fonts Connection -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  
+  <!-- External Stylesheet for Easy AI Iterability -->
+  <link rel="stylesheet" href="css/styles.css" />
 
-    :root {
-      /* Risograph Spot Colors */
-      --color-paper: #faf7f0;
-      --color-paper-shadow: #e6dfd1;
-      --color-ink-dark: #121215;
-      
-      --color-ink-pink: #ff3377;
-      --color-ink-pink-alpha: rgba(255, 51, 119, 0.85);
-      
-      --color-ink-blue: #0047bb;
-      --color-ink-blue-alpha: rgba(0, 71, 187, 0.85);
-      
-      --color-ink-yellow: #ffb800;
-      --color-ink-yellow-alpha: rgba(255, 184, 0, 0.85);
-      
-      --color-ink-teal: #009c95;
-      --color-ink-teal-alpha: rgba(0, 156, 149, 0.85);
-
-      --font-display: "Space Grotesk", system-ui, sans-serif;
-      --font-body: "Hanken Grotesk", system-ui, sans-serif;
-
-      --border-heavy: 3.5px solid var(--color-ink-dark);
-      --border-light: 1.5px solid var(--color-ink-dark);
-    }
-
-    html, body {
-      background-color: var(--color-paper);
-      /* Subtle halftone/dots background pattern */
-      background-image: 
-        radial-gradient(var(--color-paper-shadow) 1.5px, transparent 1.5px),
-        radial-gradient(var(--color-paper-shadow) 1.5px, transparent 1.5px);
-      background-size: 24px 24px;
-      background-position: 0 0, 12px 12px;
-      color: var(--color-ink-dark);
-      font-family: var(--font-body);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      min-height: 100vh;
-    }
-
-    /* ── Fine-Grain Overlay ── */
-    .noise-overlay {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      opacity: 0.16;
-      z-index: 9999;
-      pointer-events: none;
-      filter: url(#riso-grain);
-    }
-
-    /* ── Main Container ── */
-    .container {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 40px 32px 64px;
-      position: relative;
-      z-index: 10;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 28px 20px 48px;
+  <!-- Schema.org JSON-LD Structured Data for Search Engine Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Chemical Farmers",
+    "url": "https://chemicalfarmers.com",
+    "logo": "https://chemicalfarmers.com/assets/og-image.png",
+    "description": "A collaborative studio and design lab blending digital systems, physical garments, and experimental artifacts.",
+    "foundingDate": "2021",
+    "sameAs": [
+      "https://twitter.com/chemicalfarmers",
+      "https://github.com/chemicalfarmers"
+    ],
+    "subOrganization": [
+      {
+        "@type": "Product",
+        "name": "Oxide",
+        "url": "https://oxide.chemicalfarmers.com",
+        "description": "Live auctions on exclusive Chemical Farmers merchandise. One item, one stage, one winner."
+      },
+      {
+        "@type": "Organization",
+        "name": "AL2O3",
+        "url": "https://al2o3.chemicalfarmers.com",
+        "description": "Experimental apparel branding collective and textile print house."
       }
-    }
-
-    /* ── Header ── */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
-      border-bottom: var(--border-light);
-      padding-bottom: 16px;
-    }
-
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-logo {
-      display: block;
-      filter: drop-shadow(1px 1px 0 var(--color-ink-dark));
-      flex-shrink: 0;
-    }
-
-    .header-title {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-    }
-
-    .header-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border: var(--border-light);
-      border-radius: 999px;
-      background: var(--color-paper);
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      flex-shrink: 0;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: var(--color-ink-teal);
-      animation: pulse 1.8s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.3); opacity: 0.4; }
-    }
-
-    /* ── Ventures Yellow Box Container ── */
-    .ventures-box-wrap {
-      position: relative;
-      margin-bottom: 48px;
-    }
-
-    .ventures-box-shadow {
-      position: absolute;
-      inset: 0;
-      background-color: var(--color-ink-dark);
-      border-radius: 20px;
-      border: var(--border-heavy);
-      z-index: 1;
-      transform: translate(8px, 8px);
-    }
-
-    .ventures-box-body {
-      position: relative;
-      z-index: 2;
-      background-color: var(--color-ink-yellow);
-      border: var(--border-heavy);
-      border-radius: 20px;
-      padding: 40px;
-    }
-
-    @media (max-width: 768px) {
-      .ventures-box-body {
-        padding: 24px;
-      }
-    }
-
-    /* ── Ventures Intro (Title inside yellow box) ── */
-    .ventures-intro {
-      margin-bottom: 32px;
-      max-width: 800px;
-    }
-
-    .ventures-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 6vw, 3.8rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.03em;
-      line-height: 0.95;
-      color: var(--color-ink-dark);
-      position: relative;
-      display: inline-block;
-      margin-bottom: 16px;
-    }
-
-    /* Riso shift text shadow effect using blend modes on yellow */
-    .ventures-title::before {
-      content: attr(data-text);
-      position: absolute;
-      left: 2.5px;
-      top: -2.5px;
-      color: var(--color-ink-pink-alpha);
-      mix-blend-mode: multiply;
-      z-index: -1;
-      opacity: 0.95;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .ventures-title::after {
-      content: attr(data-text);
-      position: absolute;
-      left: -2.5px;
-      top: 2.5px;
-      color: var(--color-ink-blue-alpha);
-      mix-blend-mode: multiply;
-      z-index: -2;
-      opacity: 0.95;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .ventures-desc {
-      font-size: 16px;
-      line-height: 1.5;
-      font-weight: 600;
-      color: var(--color-ink-dark);
-      opacity: 0.9;
-    }
-
-    /* Brush highlighter effect */
-    .highlight-ink {
-      position: relative;
-      display: inline-block;
-      padding: 0 4px;
-      z-index: 1;
-    }
-
-    .highlight-ink::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 2px;
-      width: 100%;
-      height: 48%;
-      z-index: -1;
-      transform: rotate(-0.5deg);
-    }
-    
-    .highlight-ink.pink::before { background-color: var(--color-ink-pink-alpha); }
-    .highlight-ink.yellow::before { background-color: var(--color-ink-yellow-alpha); }
-
-    /* ── Ventures Grid ── */
-    .ventures-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 28px;
-    }
-
-    @media (max-width: 480px) {
-      .ventures-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ── Venture Cards ── */
-    .card-wrap {
-      position: relative;
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      outline: none;
-    }
-
-    /* Positioned containers for cards & manifests */
-    .manifest-card, .logbook-card {
-      position: relative;
-    }
-
-    /* The offset print color shadow block */
-    .card-ink-shadow {
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      border: var(--border-heavy);
-      z-index: 1;
-      transform: translate(6px, 6px);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .pink-shadow { background-color: var(--color-ink-pink); }
-    .teal-shadow { background-color: var(--color-ink-teal); }
-    .yellow-shadow { background-color: var(--color-ink-yellow); }
-
-    /* The primary card surface */
-    .card-body {
-      position: relative;
-      z-index: 2;
-      background: var(--color-paper);
-      border: var(--border-heavy);
-      border-radius: 16px;
-      padding: 24px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Card header metadata */
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .card-meta {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      opacity: 0.6;
-    }
-
-    .card-status-pill {
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border: var(--border-light);
-      border-radius: 999px;
-      letter-spacing: 0.04em;
-    }
-
-    .card-status-pill.green {
-      background-color: #e5fdf3;
-      color: #007747;
-      border-color: #007747;
-    }
-
-    .card-status-pill.blue {
-      background-color: #e6efff;
-      color: var(--color-ink-blue);
-      border-color: var(--color-ink-blue);
-    }
-
-    /* Card visual graphic container */
-    .graphic-container {
-      position: relative;
-      width: 100%;
-      height: 135px;
-      background-color: var(--color-paper-shadow);
-      border: var(--border-light);
-      border-radius: 8px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Grid layout simulation inside cards */
-    .graphic-container::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(var(--color-ink-dark) 0.8px, transparent 0.8px);
-      background-size: 8px 8px;
-      opacity: 0.05;
-      pointer-events: none;
-    }
-
-    .venture-graphic {
-      width: 90%;
-      height: 90%;
-      max-height: 120px;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Card Details */
-    .card-title {
-      font-family: var(--font-display);
-      font-size: 24px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      margin-bottom: 8px;
-      color: var(--color-ink-dark);
-    }
-
-    .card-desc {
-      font-size: 14px;
-      line-height: 1.5;
-      opacity: 0.85;
-      color: var(--color-ink-dark);
-      margin-bottom: 20px;
-      flex-grow: 1;
-    }
-
-    /* Card footer button */
-    .card-footer {
-      display: flex;
-      margin-top: auto;
-    }
-
-    .card-link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      padding: 10px 18px;
-      border: var(--border-heavy);
-      border-radius: 8px;
-      background: var(--color-paper);
-      color: var(--color-ink-dark);
-      transition: background 0.15s, color 0.15s, box-shadow 0.25s, transform 0.25s;
-    }
-
-    .pink-btn { box-shadow: 4px 4px 0 var(--color-ink-pink-alpha); }
-    .teal-btn { box-shadow: 4px 4px 0 var(--color-ink-teal-alpha); }
-
-    .arrow {
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Interactive Hover Transitions */
-    .card-wrap:hover .card-body {
-      transform: translate(-4px, -4px);
-    }
-
-    .card-wrap:hover .card-ink-shadow {
-      transform: translate(10px, 10px);
-    }
-
-    .card-wrap:active .card-body {
-      transform: translate(1px, 1px);
-    }
-
-    .card-wrap:active .card-ink-shadow {
-      transform: translate(3px, 3px);
-    }
-
-    /* Riso screen layers slide slightly relative to outline to feel organic */
-    .card-wrap:hover .riso-layers {
-      transform: translate(2px, -1.5px);
-    }
-
-    .card-wrap:hover .stamp-outlines {
-      transform: translate(-1px, 1px);
-    }
-
-    .card-wrap:hover .venture-graphic {
-      transform: scale(1.02);
-    }
-
-    .card-wrap:hover .pink-btn {
-      background-color: var(--color-ink-pink);
-      color: var(--color-paper);
-      box-shadow: 0px 0px 0 var(--color-ink-pink-alpha);
-      transform: translate(2px, 2px);
-    }
-
-    .card-wrap:hover .teal-btn {
-      background-color: var(--color-ink-teal);
-      color: var(--color-paper);
-      box-shadow: 0px 0px 0 var(--color-ink-teal-alpha);
-      transform: translate(2px, 2px);
-    }
-
-    .card-wrap:hover .arrow {
-      transform: translateX(3px);
-    }
-
-    /* Transitions for SVG groups */
-    .riso-layers, .stamp-outlines {
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* ── Secondary Section: Studio Manifest & Logbook ── */
-    .manifest-section {
-      margin-bottom: 64px;
-    }
-
-    .manifest-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      gap: 32px;
-    }
-
-    @media (max-width: 860px) {
-      .manifest-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .manifest-body {
-      padding: 32px;
-    }
-
-    .manifest-title {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-
-    .manifest-text {
-      font-size: 15px;
-      line-height: 1.6;
-      opacity: 0.9;
-      font-weight: 500;
-    }
-
-    .logbook-body {
-      padding: 32px;
-      background: var(--color-paper);
-      border: var(--border-heavy);
-      border-radius: 16px;
-    }
-
-    .logbook-title {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      margin-bottom: 20px;
-      border-bottom: var(--border-light);
-      padding-bottom: 8px;
-    }
-
-    .logbook-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .logbook-list li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .logbook-list li .num {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--color-ink-pink);
-    }
-
-    .logbook-list li .detail strong {
-      font-family: var(--font-display);
-      font-size: 15px;
-      font-weight: 700;
-      display: block;
-      margin-bottom: 2px;
-      text-transform: uppercase;
-    }
-
-    .logbook-list li .detail p {
-      font-size: 13px;
-      line-height: 1.4;
-      opacity: 0.8;
-    }
-
-    /* ── Footer ── */
-    .footer {
-      border-top: var(--border-heavy);
-      padding-top: 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    @media (max-width: 600px) {
-      .footer {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-      }
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-links a {
-      color: var(--color-ink-dark);
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s;
-    }
-
-    .footer-links a:hover {
-      border-color: var(--color-ink-pink);
-    }
-  </style>
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <!-- Fine Grain Texture Layer -->
-  <div class="noise-overlay"></div>
+  <div class="noise-overlay" id="grain-overlay"></div>
 
   <!-- SVG Filter defining organic Risograph grain -->
   <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
@@ -622,11 +84,11 @@
     </filter>
   </svg>
 
-  <div class="container">
+  <div class="container" id="main-container">
     
     <!-- ── Header ── -->
-    <header class="header">
-      <div class="header-logo">
+    <header class="header" id="main-header">
+      <div class="header-logo" id="logo-block">
         <svg class="brand-logo" viewBox="0 0 100 100" width="38" height="38" aria-label="Chemical Farmers Stamp Logo">
           <!-- Overlapping translucent colors forming screen print stamps -->
           <g mix-blend-mode="multiply">
@@ -639,30 +101,30 @@
         </svg>
         <span class="header-title">Chemical Farmers</span>
       </div>
-      <div class="header-status">
+      <div class="header-status" id="status-block">
         <span class="status-dot"></span>
         <span>Studio Active</span>
       </div>
     </header>
 
     <!-- ── Ventures Yellow Box Container ── -->
-    <div class="ventures-box-wrap">
-      <div class="ventures-box-shadow"></div>
-      <div class="ventures-box-body">
+    <div class="ventures-box-wrap" id="ventures-section">
+      <div class="ventures-box-shadow" id="ventures-section-shadow"></div>
+      <div class="ventures-box-body" id="ventures-section-body">
 
         <!-- ── Ventures Intro (Title inside yellow box) ── -->
-        <div class="ventures-intro">
-          <h1 class="ventures-title" data-text="Ventures Directory">Ventures Directory</h1>
+        <div class="ventures-intro" id="ventures-header">
+          <h1 class="ventures-title" data-text="Ventures Directory" id="page-main-title">Ventures Directory</h1>
           <p class="ventures-desc">
             A curated showcase of active software platforms, live merchandise auctions, and experimental textile branding labs developed by the <span class="highlight-ink pink">Chemical Farmers</span> design collective.
           </p>
         </div>
 
         <!-- ── Ventures Section Grid ── -->
-        <div class="ventures-grid">
+        <div class="ventures-grid" id="ventures-grid">
           
           <!-- Venture 01: Oxide -->
-          <a href="https://oxide.chemicalfarmers.com" target="_blank" rel="noopener noreferrer" class="card-wrap">
+          <a href="https://oxide.chemicalfarmers.com" target="_blank" rel="noopener noreferrer" class="card-wrap" id="card-oxide">
             <div class="card-ink-shadow pink-shadow"></div>
             <div class="card-body">
               
@@ -709,7 +171,7 @@
           </a>
 
           <!-- Venture 02: AL2O3 -->
-          <a href="https://al2o3.chemicalfarmers.com" target="_blank" rel="noopener noreferrer" class="card-wrap">
+          <a href="https://al2o3.chemicalfarmers.com" target="_blank" rel="noopener noreferrer" class="card-wrap" id="card-al2o3">
             <div class="card-ink-shadow teal-shadow"></div>
             <div class="card-body">
               
@@ -774,10 +236,10 @@
     </div>
 
     <!-- ── Secondary Section: Studio Manifest & Logbook ── -->
-    <section class="manifest-section">
-      <div class="manifest-grid">
+    <section class="manifest-section" id="studio-manifest">
+      <div class="manifest-grid" id="manifest-grid">
         
-        <div class="manifest-card">
+        <div class="manifest-card" id="card-manifest">
           <div class="card-ink-shadow pink-shadow"></div>
           <div class="card-body manifest-body">
             <h3 class="manifest-title">Collective Manifest</h3>
@@ -787,7 +249,7 @@
           </div>
         </div>
 
-        <div class="logbook-card">
+        <div class="logbook-card" id="card-principles">
           <div class="logbook-body">
             <h3 class="logbook-title">Core Principles</h3>
             <ul class="logbook-list">
@@ -820,7 +282,7 @@
     </section>
 
     <!-- ── Footer ── -->
-    <footer class="footer">
+    <footer class="footer" id="main-footer">
       <div class="footer-left">
         <p>&copy; 2026 Chemical Farmers. All rights reserved.</p>
       </div>
